@@ -9,9 +9,7 @@ connection.connect()
 
 // 查询列表
 router.get('/todo/query', function(req, res, next) {
-  res.json({"age": 18})
-  // res.send('age')
-  var sql = "select * from todolist"
+  var sql = "select * from list"
   connection.query(sql, (err, result) => {
     if (err) {
       console.log(err)
@@ -25,10 +23,9 @@ router.get('/todo/query', function(req, res, next) {
 
 // 新增
 router.post('/todo/create', function(req, res, next) {
-  res.render('index', { title: 'Express' });
   // console.log(req)
-  var sql = "select * from todolist"
-  connect.query(sql, (err, result) => {
+  var sql = "insert into list(id, title, thumb, extra, body, footer) values(?,?,?,?,?,?)"
+  connect.query(sql, {params: req.query || req.params}, (err, result) => {
     if (err) {
       console.log(err)
     }
@@ -38,6 +35,10 @@ router.post('/todo/create', function(req, res, next) {
     }
   })
 });
+
+router.post('/', function(req, res, next) {
+  res.render('index', { title: 'Express' });
+})
 
 
 
