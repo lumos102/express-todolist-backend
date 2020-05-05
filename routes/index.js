@@ -12,20 +12,22 @@ router.get('/todo/query', function(req, res, next) {
   var sql = "select * from list"
   connection.query(sql, (err, result) => {
     if (err) {
-      console.log(err)
+      throw(err)
     }
-    if (result) {
-      console.log(result)
-      res.json(result)
-    }
+    res.json(result)
+    // if (result) {
+    //   console.log(result)
+    //   res.json(result)
+    // }
   })
 });
 
 // 新增
 router.post('/todo/create', function(req, res, next) {
-  // console.log(req)
+  console.log(req.query)
+  var params = req.query || req.params
   var sql = "insert into list(id, title, thumb, extra, body, footer) values(?,?,?,?,?,?)"
-  connect.query(sql, {params: req.query || req.params}, (err, result) => {
+    connection.query(sql, [0, 1, 2, 3, 4, 5], (err, result) => {
     if (err) {
       console.log(err)
     }
