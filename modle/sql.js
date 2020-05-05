@@ -4,5 +4,4 @@ var sql = {
   modifyTodo: 'update list set title=?, thumb=?, extra=?, body=?, footer=? where id=?'
 }
 
-// export default sql
 module.exports = sql
