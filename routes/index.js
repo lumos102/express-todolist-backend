@@ -5,7 +5,7 @@ var mysql = require('mysql')
 var sql = require('../modle/sql')
 
 // 连接数据库
-var connection = mysql.createConnection(models)
+var connection = mysql.createConnection(models.mysql_config)
 connection.connect()
 
 // 查询列表
@@ -15,7 +15,7 @@ router.get('/todo/query', function(req, res, next) {
       console.log(err)
     }
     if (result) {
-      console.log(result)
+      // console.log(result)
       res.json(result)
     }
   })
@@ -23,17 +23,14 @@ router.get('/todo/query', function(req, res, next) {
 
 // 新增
 router.post('/todo/create', function(req, res, next) {
-  // let params = req.query || req.params
   let params = req.body
-  // console.log('params', params)
-  // connection.query(sql.createTodo, [0,1,2,3,4,5], (err, result) => {
   connection.query(sql.createTodo, [params.id, params.title, params.thumb, params.extra, params.body, params.footer], (err, result) => {
     if (err) {
       console.log(err)
       res.json({msg: '错误'})
     }
     if (result) {
-      console.log('result', result)
+      // console.log('result', result)
       res.json(result)
     }
   })
